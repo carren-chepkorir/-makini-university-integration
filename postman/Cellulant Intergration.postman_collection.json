@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "b27b3d10-43b5-4e24-9eac-21a9e2b73a52",
+		"name": "Makini University Payment Integration",
+		"description": "Postman collection for testing Makini University Cellulant Payment Integration API.\n\nThis collection supports student validation, payment notifications, and payment queries.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://localhost:8001/api/v1/cellulant/health",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8001",
+					"path": ["api", "v1", "cellulant", "health"]
+				},
+				"description": "Checks if the API is running."
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"studentId\": \"STU009\",\n  \"email\": \"carren.chepkorir@makini.ac.ke\",\n  \"phoneNumber\": \"+254700123456\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/v1/cellulant/validate-student",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8001",
+					"path": ["api", "v1", "cellulant", "validate-student"]
+				},
+				"description": "Validates a student by ID, email, and phone number."
+			},
+			"response": []
+		},
+		{
+			"name": "Payment Notification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"studentId\": \"STU001\",\n  \"amount\": 4500.00,\n  \"paymentMethod\": \"CARD\",\n  \"currency\": \"KES\",\n  \"paymentStatus\": \"SUCCESS\",\n  \"description\": \"Tuition fees payment for Term 3\",\n  \"customerName\": \"Hellen\",\n  \"customerPhone\": \"+254748298861\",\n  \"customerEmail\": \"test@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/v1/cellulant/payment-notification",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8001",
+					"path": ["api", "v1", "cellulant", "payment-notification"]
+				},
+				"description": "Sends a payment notification to the API to record and process a student's payment."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Payments",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://localhost:8001/api/v1/cellulant/payments/student/STU009",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8001",
+					"path": ["api", "v1", "cellulant", "payments", "student", "STU009"]
+				},
+				"description": "Retrieves all payments made by a specific student using their student ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payments by Method",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://localhost:8001/api/v1/cellulant/payments/method/MPESA",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8001",
+					"path": ["api", "v1", "cellulant", "payments", "method", "MPESA"]
+				},
+				"description": "Retrieves all payments filtered by a specific payment method (e.g., MPESA, CARD, BANK_TRANSFER)."
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Payments",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://localhost:8001/api/v1/cellulant/payments",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8001",
+					"path": ["api", "v1", "cellulant", "payments"]
+				},
+				"description": "Fetches all payments from the system (admin-level operation)."
+			},
+			"response": []
+		}
+	]
+}

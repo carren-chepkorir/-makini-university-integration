@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -76,5 +77,16 @@ public class PaymentIntegrationController {
             return ResponseEntity.ok().body(response);
         }
     }
+    @GetMapping("/health")
+    public ResponseEntity<GenericResponse<String>> healthCheck() {
+        log.info("Health check requested at {}", LocalDateTime.now());
 
+        GenericResponse<String> response = GenericResponse.<String>builder()
+                .status(ResponseStatusEnum.SUCCESS)
+                .message("API is running")
+                ._embedded("Makini University Payment Integration API v1.0")
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
 }
